@@ -10,6 +10,9 @@ from math import floor, log
 # string.ascii_letters is ascii_lowercase + ascii_uppercase
 # string.printable is digits + ascii_letters + punctuation + whitespace
 string_of_digits = string.digits + string.ascii_lowercase
+dic_of_digits = {}
+for i, digit in enumerate(string_of_digits):
+    dic_of_digits[digit] = i
 
 
 def decode(digits: str, base: int) -> int:
@@ -30,7 +33,8 @@ def decode(digits: str, base: int) -> int:
     # i will increment for each exponent
     output = 0
     for i, digit in enumerate(reversed(digits)):
-        output += string_of_digits.index(digit) * (base ** i)
+        # output += string_of_digits.index(digit) * (base ** i)
+        output += dic_of_digits[digit] * (base ** i)
     # print(output)
     return output
 
@@ -57,14 +61,15 @@ def encode(number: int, base: int) -> str:
         # while number >= exponential_number:
         #     number -= exponential_number
         #     new_digit_index += 1
-        new_digit_index = floor(number / exponential_number)
+        new_digit_index = number // exponential_number
         number = number % exponential_number
         new_digit = string_of_digits[new_digit_index]
         output += new_digit
-        power -= 1
+        # add extra zeros if number = 0
         if number == 0:
-            for i in range(power + 1):
+            for i in range(power):
                 output += "0"
+        power -= 1
 
     print(output)
     # output = "hello"
@@ -81,13 +86,7 @@ def convert(digits, base1, base2):
     assert 2 <= base2 <= 36, 'base2 is out of range: {}'.format(base2)
 
     return encode(int(decode(digits, base1)), base2)
-    # TODO: Convert digits from base 2 to base 16 (and vice versa)
-    # ...
-    # TODO: Convert digits from base 2 to base 10 (and vice versa)
-    # ...
-    # TODO: Convert digits from base 10 to base 16 (and vice versa)
-    # ...
-    # TODO: Convert digits from any base to any base (2 up to 36)
+
 
 
 def main():
