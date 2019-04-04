@@ -15,6 +15,8 @@ def factorial(n):
 def factorial_iterative(n):
     # once implemented, change factorial (above) to call factorial_iterative
     # to verify that your iterative implementation passes all tests
+    
+    # base case is n == 1
     if n == 0 or n == 1:
         return 1
     output = 1
