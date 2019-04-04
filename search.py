@@ -34,7 +34,22 @@ def binary_search_iterative(array, item):
     # TODO: implement binary search iteratively here
     # once implemented, change binary_search to call binary_search_iterative
     # to verify that your iterative implementation passes all tests
-    pass
+    left = 0
+    right = len(array) - 1
+
+    while True:
+        median = (right + left) // 2
+        median_value = array[median]
+        if median_value == item:
+            return median
+        if item > median_value:
+            left = median + 1
+        elif item < median_value:
+            right = median - 1
+        if right == left:
+            if array[left] == item:
+                return right
+            return None
 
 
 
@@ -62,5 +77,5 @@ def binary_search_recursive(array, item, left=None, right=None):
 
     return binary_search_recursive(array, item, left, right)
 
-# my_array = [0,1,2,3,4,5,6,7,8,9]
-# print(binary_search_iterative(my_array, 30))
+my_array = [0,1,2,3,4,5,6,7,8,9]
+print(binary_search_iterative(my_array, 8))
