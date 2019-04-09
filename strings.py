@@ -32,6 +32,15 @@ def find_all_indexes(text, pattern):
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
     # TODO: Implement find_all_indexes here (iteratively and/or recursively)
+    pat_len = len(pattern)
+    list_of_indexes = []
+    for i in range(0, len(text) - len(pattern) + 1):
+        print(pattern, text[i : i + pat_len] )
+        if pattern == text[i : i + pat_len]:
+            list_of_indexes.append(i)
+    if len(list_of_indexes) == 0:
+        return False
+    return list_of_indexes
 
 
 def test_string_algorithms(text, pattern):
