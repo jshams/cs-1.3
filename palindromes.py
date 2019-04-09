@@ -39,7 +39,12 @@ def is_palindrome_recursive(text, left=0, right=None):
         return False
     return is_palindrome_recursive(text, left + 1, right -1)
 
-
+def refine_text(text):
+    text = text.lower()
+    exclusions = "?.-! ,'"
+    for char in exclusions:
+        text = text.replace(char, '')
+    return text
     
 
 def main():
