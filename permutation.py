@@ -1,3 +1,4 @@
+from random import randint
 def permutations(array):
     if len(array) < 2:
         return array
@@ -14,4 +15,10 @@ def permutations(array):
         all_perms.extend(all_perms_extension)
     return all_perms
     
-print(permutations([1,2,3]))
+def generate_random_permutation(text):
+    for index, char in enumerate(text):
+        rando = randint(0, len(text) - 1)
+        text[index], text[rando] = text[rando], text[index]
+    return text
+
+print(generate_random_permutation(['J','A','K','E']))

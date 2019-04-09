@@ -1,11 +1,11 @@
 #!python
 
+
 import string
 # Hint: Use these string constants to ignore capitalization and/or punctuation
 # string.ascii_lowercase is 'abcdefghijklmnopqrstuvwxyz'
 # string.ascii_uppercase is 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 # string.ascii_letters is ascii_lowercase + ascii_uppercase
-
 
 def is_palindrome(text):
     """A string of characters is a palindrome if it reads the same forwards and
@@ -39,13 +39,15 @@ def is_palindrome_recursive(text, left=0, right=None):
         return False
     return is_palindrome_recursive(text, left + 1, right -1)
 
+LETTERS = frozenset(string.ascii_letters) # this is a set of letters that is quick
+
 def refine_text(text):
     text = text.lower()
     exclusions = "?.-! ,'"
     for char in exclusions:
         text = text.replace(char, '')
     return text
-    
+
 
 def main():
     import sys
