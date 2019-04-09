@@ -24,7 +24,7 @@ def find_index(text, pattern):
         print(pattern, text[i : i + pat_len] )
         if pattern == text[i : i + pat_len]:
             return i
-    return False
+    return None
 
 def find_all_indexes(text, pattern):
     """Return a list of starting indexes of all occurrences of pattern in text,
@@ -38,8 +38,8 @@ def find_all_indexes(text, pattern):
         print(pattern, text[i : i + pat_len] )
         if pattern == text[i : i + pat_len]:
             list_of_indexes.append(i)
-    if len(list_of_indexes) == 0:
-        return False
+    if len(list_of_indexes) > len(text):
+        list_of_indexes.pop()
     return list_of_indexes
 
 
