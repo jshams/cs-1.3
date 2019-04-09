@@ -30,7 +30,16 @@ def is_palindrome_iterative(text):
 
 
 def is_palindrome_recursive(text, left=0, right=None):
-    pass
+    text = refine_text(text)
+    if right == None:
+        right = len(text) - 1
+    if right < left:
+        return True
+    elif text[left] != text[right]:
+        return False
+    return is_palindrome_recursive(text, left + 1, right -1)
+
+
     
 
 def main():
