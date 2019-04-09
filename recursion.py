@@ -13,9 +13,6 @@ def factorial(n):
 
 
 def factorial_iterative(n):
-    # once implemented, change factorial (above) to call factorial_iterative
-    # to verify that your iterative implementation passes all tests
-    
     # base case is n == 1
     if n == 0 or n == 1:
         return 1
@@ -27,13 +24,11 @@ def factorial_iterative(n):
 
 
 def factorial_recursive(n):
-    # check if n is one of the base cases
-    if n == 0 or n == 1:
+    # base case
+    if n == 0:
         return 1
-    # check if n is an integer larger than the base cases
-    elif n > 1:
-        # call function recursively
-        return n * factorial_recursive(n - 1)
+    # if not base case call the function again
+    return n * factorial_recursive(n - 1)
 
 
 def main():

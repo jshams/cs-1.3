@@ -58,9 +58,6 @@ def encode(number: int, base: int) -> str:
     while number != 0:
         exponential_number = base ** power
         new_digit_index = 0
-        # while number >= exponential_number:
-        #     number -= exponential_number
-        #     new_digit_index += 1
         new_digit_index = number // exponential_number
         number = number % exponential_number
         new_digit = string_of_digits[new_digit_index]
@@ -74,6 +71,21 @@ def encode(number: int, base: int) -> str:
     print(output)
     # output = "hello"
     return output
+
+
+def encode_decimals(number, base: int):
+    number -= floor(number)  # this cuts off the whole number leaving only the decimals
+    if number == 0.0:
+        return
+    output = ''
+    x = 0
+    while number != 0.0:
+        next_char = number // (1 / base ** x)
+        next_char = dic_of_digits[next_char]
+        output += next_char
+    return output
+
+    
 
 def convert(digits, base1, base2):
     """Convert given digits in base1 to digits in base2.
@@ -100,8 +112,11 @@ def main():
         # Convert given digits between bases
         result = convert(digits, base1, base2)
         print('{} in base {} is {} in base {}'.format(digits, base1, result, base2))
+    # elif len(args) == 2:
+    #     encode(int(args[0]), int(args[1]))
     elif len(args) == 2:
-        encode(int(args[0]), int(args[1]))
+        op = encode_decimals(float(args[0]), int(args[1]))
+        print(op)
     else:
         print('Usage: {} digits base1 base2'.format(sys.argv[0]))
         print('Converts digits from base1 to base2')
