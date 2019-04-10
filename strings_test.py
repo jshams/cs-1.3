@@ -74,6 +74,8 @@ class StringsTest(unittest.TestCase):
         assert find_index('abcabcdabcde', 'abcd') == 3  # multiple occurrences, overlapping prefix
         assert find_index('abra cadabra', 'abra') == 0  # multiple occurrences
         assert find_index('abra cadabra', 'adab') == 6  # overlapping prefix
+        assert find_index('aaaaaaaaag', 'aaag') == 6
+        assert find_index('alphabet --ght', 't --gh') == 7
         # TODO: Write more test cases that check complex patterns or edge cases
         # You'll need a lot more than this to test your algorithm's robustness
         # ...
@@ -89,6 +91,7 @@ class StringsTest(unittest.TestCase):
         assert find_all_indexes('abc', 'abc') == [0]  # all strings contain themselves
         assert find_all_indexes('aaa', 'a') == [0, 1, 2]  # multiple occurrences
         assert find_all_indexes('aaa', 'aa') == [0, 1]  # overlapping pattern
+        assert find_all_indexes('hahaha','ha') == [0, 2, 4]
         # TODO: Write more positive test cases with assert equal list statements
         # ...
 
@@ -98,6 +101,7 @@ class StringsTest(unittest.TestCase):
         assert find_all_indexes('abc', 'ac') == []  # important to test close cases
         assert find_all_indexes('abc', 'az') == []  # first letter, but not last
         assert find_all_indexes('abc', 'abz') == []  # first 2 letters, but not last
+        assert find_all_indexes('abcabcabcabc','ac') == []
         # TODO: Write more negative test cases with assert equal list statements
         # ...
 
@@ -113,6 +117,10 @@ class StringsTest(unittest.TestCase):
         assert find_all_indexes('abcabcdabcde', 'abcd') == [3, 7]  # multiple occurrences, overlapping prefix
         assert find_all_indexes('abra cadabra', 'abra') == [0, 8]  # multiple occurrences
         assert find_all_indexes('abra cadabra', 'adab') == [6]  # overlapping prefix
+        assert find_all_indexes('Poopy-di scoop Scoop-diddy-whoop Whoop-di-scoop-di-poop', 'oop') == [1, 11, 17, 29, 35, 44, 52]
+        assert find_all_indexes('Poop-di-scoopty Scoopty-whoop Whoopity-scoop, whoop-poop', 'whoop') == [24, 46]
+        assert find_all_indexes('Poop-diddy, whoop-scoop Poop, poop', 'op-') == [2, 15]
+        assert find_all_indexes('Scoop-diddy-whoop Whoop-diddy-scoop Whoop-diddy-scoop, poop', 'oop-diddy') == [2, 20, 38]
         # TODO: Write more test cases that check complex patterns or edge cases
         # You'll need a lot more than this to test your algorithm's robustness
         # ...
