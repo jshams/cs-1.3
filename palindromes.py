@@ -18,6 +18,9 @@ def is_palindrome(text):
 
 
 def is_palindrome_iterative(text):
+    '''time complexity:
+            min time: O(1) if not palindrome on first check
+            max time: O(n) if it is a palindrome'''
     text = refine_text(text)
     left = 0
     right = len(text) -1
@@ -30,6 +33,9 @@ def is_palindrome_iterative(text):
 
 
 def is_palindrome_recursive(text, left=0, right=None):
+    '''time complexity:
+        min time: O(1) if not palindrome on first check
+        max time: O(n) if it is a palindrome'''
     text = refine_text(text)
     if right == None:
         right = len(text) - 1
@@ -42,6 +48,9 @@ def is_palindrome_recursive(text, left=0, right=None):
 LETTERS = frozenset(string.ascii_letters) # this is a set of letters that is quick
 
 def refine_text(text):
+    '''time complexity:
+        min time: O(n)
+        max time: O(n)'''
     text = text.lower()
     exclusions = "?.-! ,'"
     for char in exclusions:
