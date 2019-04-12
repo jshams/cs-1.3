@@ -7,7 +7,7 @@
 - Annotate methods with complexity analysis of running time and space (memory)
 '''
 
-class Node(object):
+class DoublyNode(object):
 
     def __init__(self, data):
         """Initialize this node with the given data."""
@@ -114,23 +114,37 @@ class DoublyLinkedList(object):
             self.append(item)
             return
         else:
-            node_index = 0 # this will increment till we reach our index
-            node = self.head # start at first node
-            new_node = Node(item) # create a node of inputted item
-            while node_index != index: # traverse the list till node_index == index
-                node_index += 1
-                node = node.next
-            # we've found the insert location
-            new_node.next = node.next # now the new node is pointing to the next node
-            node.next = new_node # now the previous node is pointing to the new node
-            self.size += 1
+            if self.size / 2 > index:
+                node_index = 0 # this will increment till we reach our index
+                node = self.head # start at first node
+                new_node = DoublyNode(item) # create a node of inputted item
+                while node_index != index: # traverse the list till node_index == index
+                    node_index += 1
+                    node = node.next
+                # we've found the insert location
+                new_node.next = node.next # now the new node is pointing to the next node
+                new_node.prev = node
+                node.next.prev = new_node # now the next node is pointing back to the new node
+                node.next = new_node # now the node is pointing towards our new node
+                self.size += 1
+            else:
+                node_index = self.size - 1
+                node = self.tail
+                new_node = DoublyNode(item)
+                while node_index != index:
+                    node = node.prev
+                    node_index -= 1
+                new_node.next = node.next # now the new node is pointing to the next node
+                new_node.prev = node 
+                node.next.prev = new_node # now the next node is pointing back to the new node
+                node.next = new_node # now the node is pointing towards our new node
+                self.size += 1
                 
-
     def append(self, item):
         """Insert the given item at the tail of this linked list.
         Best and worst case running time: O(1)"""
         # Create a new node to hold the given item
-        new_node = Node(item)
+        new_node = DoublyNode(item)
         # Check if this linked list is empty
         if self.is_empty():
             # Assign head to new node
@@ -148,7 +162,7 @@ class DoublyLinkedList(object):
         Best and worst case running time: ??? under what conditions? [TODO]"""
 
         # Create a new node to hold the given item
-        new_node = Node(item)
+        new_node = DoublyNode(item)
         # Check if this linked list is empty
         if self.is_empty():
             # Assign tail to new node
