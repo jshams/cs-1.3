@@ -20,7 +20,7 @@ class Node(object):
         return 'Node({!r})'.format(self.data)
 
 
-class LinkedList(object):
+class DoublyLinkedList(object):
 
     def __init__(self, iterable=None):
         """Initialize this linked list and append the given items, if any."""
@@ -70,28 +70,38 @@ class LinkedList(object):
         return self.size
 
     def get_at_index(self, index): 
-                '''TODO IMPLEMENT FOR DOUBLY'''
         """Return the item at the given index in this linked list, or
         raise ValueError if the given index is out of range of the list size.
         Best case running time: O(1) when n == 0 or n is out of range
-        Worst case running time: O(n) """
+        Worst case running time: O(n) 
+        with doubly linked list the time is cut in half"""
         # Check if the given index is out of range and if so raise an error
         if not (-1 < index < self.size):
             raise ValueError('List index out of range: {}'.format(index))
-
-        node_index = 0  # this will increment till we reach our index
-        node = self.head # start at first node
-        while node_index != index: # traverse the list till node_index == index
-            node = node.next
-            node_index += 1
-        return node.data # we've found it! Now we can return its data
+        # checks if the index is in the frist half of the list
+        if self.size / 2 > index:
+            node_index = 0  # this will increment till we reach our index
+            node = self.head # start at first node
+            while node_index != index: # traverse the list till node_index == index
+                node = node.next
+                node_index += 1
+            return node.data # we've found it! Now we can return its data
+        # the index is in the second half of the linked list start from the end
+        else:
+            node_index = self.size - 1
+            node = self.tail
+            while node_index != index:
+                node = node.prev
+                node_index -= 1
+            return node.data
+            
 
     def insert_at_index(self, index, item):
-                '''TODO IMPLEMENT FOR DOUBLY'''
         """Insert the given item at the given index in this linked list, or
         raise ValueError if the given index is out of range of the list size.
         Best case running time: O(1) when n == 0 or n is out of range
-        Worst case running time: O(n)"""
+        Worst case running time: O(n)
+        With doubly linked list time is really half O(n) but constants are dropped"""
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index <= self.size):
             raise ValueError('List index out of range: {}'.format(index))
@@ -113,9 +123,8 @@ class LinkedList(object):
             # we've found the insert location
             new_node.next = node.next # now the new node is pointing to the next node
             node.next = new_node # now the previous node is pointing to the new node
-            self.size += 1 
-
-        # TODO: Find the node before the given index and insert item after it
+            self.size += 1
+                
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
@@ -188,11 +197,8 @@ class LinkedList(object):
         """Delete the given item from this linked list, or raise ValueError.
         Best case running time: ??? under what conditions? [TODO]
         Worst case running time: ??? under what conditions? [TODO]"""
-                        '''TODO IMPLEMENT FOR DOUBLY'''
         # Start at the head node
         node = self.head
-        # Keep track of the node before the one containing the given item
-        previous = None
         # Create a flag to track if we have found the given item
         found = False
         # Loop until we have found the given item or the node is None
@@ -203,7 +209,6 @@ class LinkedList(object):
                 found = True
             else:
                 # Skip to the next node
-                previous = node
                 node = node.next
         # Check if we found the given item or we never did and reached the tail
         if found:
@@ -211,22 +216,26 @@ class LinkedList(object):
             if node is not self.head and node is not self.tail:
                 # Update the previous node to skip around the found node
                 previous.next = node.next
+                node.prev.next = node.next
+                node.next.prev = node.prev
                 # Unlink the found node from its next node
                 node.next = None
+                node.prev = None
             # Check if we found a node at the head
             if node is self.head:
                 # Update head to the next node
                 self.head = node.next
                 # Unlink the found node from the next node
+                self.head.prev = None
                 node.next = None
             # Check if we found a node at the tail
             if node is self.tail:
-                # Check if there is a node before the found node
-                if previous is not None:
-                    # Unlink the previous node from the found node
-                    previous.next = None
-                # Update tail to the previous node regardless
-                self.tail = previous
+                # reset the tail
+                self.tail = node.prev
+                # unlink the node from prev
+                node.prev.next = None
+                # unlink the prev node from node
+                node.prev = None
             self.size -= 1
         else:
             # Otherwise raise an error to tell the user that delete has failed
