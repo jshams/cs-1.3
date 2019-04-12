@@ -1,10 +1,10 @@
 #!python
 
 # def contains(text: str, pattern: str):
-#     """Return a boolean indicating whether pattern occurs in text."""
-#     assert isinstance(text, str), 'text is not a string: {}'.format(text)
-#     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-#     '''
+    """Return a boolean indicating whether pattern occurs in text."""
+    # assert isinstance(text, str), 'text is not a string: {}'.format(text)
+    # assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
+    # '''
 #     First attempt compares slices of the string
 #     slicing costs a lot of time so I refactored 
 #     the code to optimize performance
@@ -27,6 +27,9 @@
 
 def contains(text, pattern):
     """Return a boolean indicating whether pattern occurs in text."""
+    '''time complexity:
+        min time: O(1) when pattern is found on first check
+        max time: O(n) when pattern is not found'''
     if pattern == '':
         return True
     index = 0
@@ -45,6 +48,9 @@ def contains(text, pattern):
 def find_index(text: str, pattern: str):
     """Return the starting index of the first occurrence of pattern in text,
     or None if not found."""
+    '''time complexity:
+        min time: O(1) when pattern is found on first check
+        max time: O(n) when pattern is not found'''
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
     if pattern == '':
@@ -64,6 +70,9 @@ def find_index(text: str, pattern: str):
 def find_all_indexes(text: str, pattern: str):
     """Return a list of starting indexes of all occurrences of pattern in text,
     or an empty list if not found."""
+    '''time complexity:
+        min time: O(n)
+        max time: O(n)'''
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
     pat_len = len(pattern)
