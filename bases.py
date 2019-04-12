@@ -99,6 +99,18 @@ def convert(digits, base1, base2):
 
     return encode(int(decode(digits, base1)), base2)
 
+def convert_negative_binary_to_decimal(digits: str):
+    '''this converts negative binary numbers to decimal
+    the leftmost bit notes whether the digits are negative or positive
+    if the leftmost bit is 1 the number is negative and 0 means positive
+    input should come in multiples of 8 bits all will work for simplicity
+    '''
+    if digits[0] == '1':
+        return "-{}".format(decode(digits[1: len(digits)], 2))
+    else:
+        return decode(digits[1: len(digits)], 2)
+
+
 
 
 def main():
