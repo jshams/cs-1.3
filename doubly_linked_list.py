@@ -229,21 +229,23 @@ class DoublyLinkedList(object):
             # Check if we found a node in the middle of this linked list
             if node is not self.head and node is not self.tail:
                 # Update the previous node to skip around the found node
-                previous.next = node.next
                 node.prev.next = node.next
                 node.next.prev = node.prev
                 # Unlink the found node from its next node
                 node.next = None
                 node.prev = None
             # Check if we found a node at the head
-            if node is self.head:
+            elif node is self.head and node is self.tail:
+                self.head = None
+                self.tail = None
+            elif node is self.head:
                 # Update head to the next node
                 self.head = node.next
                 # Unlink the found node from the next node
-                self.head.prev = None
+                node.next.prev = None
                 node.next = None
             # Check if we found a node at the tail
-            if node is self.tail:
+            elif node is self.tail:
                 # reset the tail
                 self.tail = node.prev
                 # unlink the node from prev
