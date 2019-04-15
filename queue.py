@@ -107,7 +107,7 @@ class Deque(object):
         self.list = DoublyLinkedList()
         if iterable is not None:
             for item in iterable:
-                self.enqueue(item)
+                self.push_back(item)
 
     def __repr__(self):
         """Return a string representation of this queue."""
@@ -115,7 +115,7 @@ class Deque(object):
 
     def is_empty(self):
         """Return True if this queue is empty, or False otherwise."""
-        return self.list.head is None
+        return self.list.head is None and self.list.tail is None
 
     def length(self):
         """Return the number of items in this queue."""
@@ -154,6 +154,9 @@ class Deque(object):
         data = self.list.head.data
         self.list.head = self.list.head.next
         self.list.size -= 1
+        if self.list.size == 0:
+            self.list.tail = None
+            self.list.head = None
         return data
 
     def pop_back(self):
@@ -165,6 +168,9 @@ class Deque(object):
         data = self.list.tail.data
         self.list.tail = self.list.tail.prev
         self.list.size -= 1
+        if self.list.size == 0:
+            self.list.head = None
+            self.list.tail = None
         return data
 
 
