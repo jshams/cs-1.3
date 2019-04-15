@@ -105,48 +105,28 @@ class DoublyLinkedList(object):
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index <= self.size):
             raise ValueError('List index out of range: {}'.format(index))
-        # if index is 0 we can call our prepend method to do work for us
-        if index == 0:
+        if index == 0: # if index is 0 we can call our prepend method to do work for us
             self.prepend(item)
-            return
-        # if index is the same as the size call our append method
-        elif index == self.size:
+        elif index == self.size: # if index is the same as the size call our append method
             self.append(item)
-            return
         else:
             if self.size / 2 > index:
-                node_index = 0 # this will increment till we reach our index
                 node = self.head # start at first node
-                new_node = DoublyNode(item) # create an instance of node with item
-                while node_index != index: # traverse the list till node_index == index
-                    node_index += 1
+                new_node = DoublyNode(item) # create an item instance of node
+                for _ in range(index): # taverse the list till we find our val
                     node = node.next
-                # we've found the insert location
-                new_node.next = node.next # now the new node is pointing to the next node
-                new_node.prev = node
-                node.next.prev = new_node # now the next node is pointing back to the new node
-                node.next = new_node # now the node is pointing towards our new node
-                self.size += 1
+                new_node.next, new_node.prev = node.next, node # have the new node point to its neightbors
+                node.next.prev = node.next = new_node # have the outer nodes point to the new node
+                self.size += 1 # increment the size because we've added a node
             else: # if the index is in the second half of the list
-                node_index = self.size -1
-                node = self.tail
-                new_node = DoublyNode(item)
-                while node_index != index:
-                    print(node.next, node, node.prev)
-                    print(node_index, index + 1)
+                node = self.tail # start at the last node
+                new_node = DoublyNode(item) # create an item instance of node
+                for _ in range(index, self.size): # reverse traverse the list till we find our val
                     node = node.prev
-                    node_index -= 1
-                new_node.next = node
-                new_node.prev = node.prev
-                node.prev.next = new_node
-                node.prev = new_node
+                new_node.next, new_node.prev = node, node.prev # have the new node point to its neightbors
+                node.prev = node.prev.next = new_node # have the outer nodes point to the new nodes
+                self.size += 1 # increment the size because we've added a node
 
-                # new_node.next = node.next # now the new node is pointing to the next node
-                # new_node.prev = node 
-                # node.next.prev = new_node # now the next node is pointing back to the new node
-                # node.next = new_node # now the node is pointing towards our new node
-                self.size += 1
-                
     def append(self, item):
         """Insert the given item at the tail of this linked list.
         Best and worst case running time: O(1)"""
