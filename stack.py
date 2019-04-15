@@ -54,7 +54,7 @@ class LinkedStack(object):
         self.list.head = self.list.head.next
         self.list.size -= 1
         return data
-        
+
 
 
 # Implement ArrayStack below, then change the assignment at the bottom
@@ -84,7 +84,8 @@ class ArrayStack(object):
 
     def push(self, item):
         """Insert the given item on the top of this stack.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(1) - but in some cases the list might grow to large and have to realocate its space in memory taking O(n) time
+        this is the reason the linked list method is better, it prevents us from getting a STACK OVERFLOW"""
         self.list.append(item)
         self.size += 1
 
@@ -98,7 +99,7 @@ class ArrayStack(object):
     def pop(self):
         """Remove and return the item on the top of this stack,
         or raise ValueError if this stack is empty.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(1) – popping here is quick because we're removing the last element, so no shifting needs to happen"""
         if self.is_empty():
             raise ValueError('stack is empty')
         self.size -= 1
