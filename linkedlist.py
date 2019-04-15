@@ -102,21 +102,16 @@ class LinkedList(object):
         if not (0 <= index <= self.size):
             raise ValueError('List index out of range: {}'.format(index))
         # if index is 0 we can call our prepend method to do work for us
-        if index == 0:
+        elif index == 0:
             self.prepend(item)
-            return
         # if index is the same as the size call our append method
         elif index == self.size:
             self.append(item)
-            return
         else:
-            node_index = 0 # this will increment till we reach our index
             node = self.head # start at first node
             new_node = Node(item) # create a node of inputted item
-            while node_index != index: # traverse the list till node_index == index
-                node_index += 1
+            for _ in range(index): # traverse the list till we get to the item at the index
                 node = node.next
-            # we've found the insert location
             new_node.next = node.next # now the new node is pointing to the next node
             node.next = new_node # now the previous node is pointing to the new node
             self.size += 1 
