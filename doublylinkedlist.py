@@ -117,7 +117,7 @@ class DoublyLinkedList(object):
             if self.size / 2 > index:
                 node_index = 0 # this will increment till we reach our index
                 node = self.head # start at first node
-                new_node = DoublyNode(item) # create a node of inputted item
+                new_node = DoublyNode(item) # create an instance of node with item
                 while node_index != index: # traverse the list till node_index == index
                     node_index += 1
                     node = node.next
@@ -127,17 +127,24 @@ class DoublyLinkedList(object):
                 node.next.prev = new_node # now the next node is pointing back to the new node
                 node.next = new_node # now the node is pointing towards our new node
                 self.size += 1
-            else:
-                node_index = self.size - 1
+            else: # if the index is in the second half of the list
+                node_index = self.size -1
                 node = self.tail
                 new_node = DoublyNode(item)
                 while node_index != index:
+                    print(node.next, node, node.prev)
+                    print(node_index, index + 1)
                     node = node.prev
                     node_index -= 1
-                new_node.next = node.next # now the new node is pointing to the next node
-                new_node.prev = node 
-                node.next.prev = new_node # now the next node is pointing back to the new node
-                node.next = new_node # now the node is pointing towards our new node
+                new_node.next = node
+                new_node.prev = node.prev
+                node.prev.next = new_node
+                node.prev = new_node
+
+                # new_node.next = node.next # now the new node is pointing to the next node
+                # new_node.prev = node 
+                # node.next.prev = new_node # now the next node is pointing back to the new node
+                # node.next = new_node # now the node is pointing towards our new node
                 self.size += 1
                 
     def append(self, item):
