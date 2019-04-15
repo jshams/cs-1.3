@@ -1,6 +1,6 @@
 #!python
 
-from doubly_linked_list import DoublyLinkedList, DoublyNode
+from doublylinkedlist import DoublyLinkedList, DoublyNode
 import unittest
 
 
