@@ -49,6 +49,13 @@ class LinkedList(object):
     def __repr__(self):
         """Return a string representation of this linked list."""
         return 'LinkedList({!r})'.format(self.items())
+    
+    def __iter__(self):
+        node = self.head
+        yield node
+        for _ in range(self.size-1):
+            node = node.next
+            yield node
 
     def items(self):
         """Return a list of all items in this linked list.
@@ -115,8 +122,6 @@ class LinkedList(object):
             new_node.next = node.next # now the new node is pointing to the next node
             node.next = new_node # now the previous node is pointing to the new node
             self.size += 1 
-
-        # TODO: Find the node before the given index and insert item after it
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
@@ -230,6 +235,7 @@ class LinkedList(object):
             raise ValueError('Item not found: {}'.format(item))
 
 
+
 def test_linked_list():
     ll = LinkedList()
     print(ll)
@@ -251,17 +257,23 @@ def test_linked_list():
         item = ll.get_at_index(index)
         print('get_at_index({}): {!r}'.format(index, item))
 
-    print('Deleting items:')
-    ll.delete('B')
-    print(ll)
-    ll.delete('C')
-    print(ll)
-    ll.delete('A')
-    print(ll)
-    print('head: {}'.format(ll.head))
-    print('tail: {}'.format(ll.tail))
-    print('size: {}'.format(ll.size))
-    print('length: {}'.format(ll.length()))
+
+    for i in ll:
+        for j in ll:
+            print(i.data, j.data)
+
+    # print('Deleting items:')
+    # ll.delete('B')
+    # print(ll)
+    # ll.delete('C')
+    # print(ll)
+    # ll.delete('A')
+    # print(ll)
+    # print('head: {}'.format(ll.head))
+    # print('tail: {}'.format(ll.tail))
+    # print('size: {}'.format(ll.size))
+    # print('length: {}'.format(ll.length()))
+
 
 
 if __name__ == '__main__':
