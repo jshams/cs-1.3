@@ -49,12 +49,30 @@ class DoublyLinkedList(object):
             node = node.next
             yield node
 
-    def __reversed__(self):
-        node = self.tail
-        yield node
-        for _ in range(self.size - 1):
-            node = node.prev
-            yield node
+    # def __reversed__(self):
+    #     node = self.tail
+    #     yield node
+    #     for _ in range(self.size - 1):
+    #         node = node.prev
+    #         yield node
+
+    def __len__(self):
+        return self.size
+    
+    def __getitem__(self, index):
+        if not (-1 < index < self.size):
+            raise ValueError('List index out of range: {}'.format(index))
+        # checks if the index is in the frist half of the list
+        if self.size / 2 > index:
+            node = self.head # start at first node
+            for _ in range(index): # traverse the list till we get to our index
+                node = node.next
+            return node # we've found it! Now we can return its data
+        else: # the index is in the second half of the linked list start from the end
+            node = self.tail
+            for _ in range(index, self.size - 1):
+                node = node.prev
+            return node
 
     def items(self):
         """Return a list of all items in this linked list.
@@ -81,7 +99,7 @@ class DoublyLinkedList(object):
     def length(self):
         """Return the length of this linked list by traversing its nodes.
         Best and worst case running time: O(1)"""
-        return self.size
+        return len(self)
 
     def get_at_index(self, index): 
         """Return the item at the given index in this linked list, or
@@ -89,26 +107,7 @@ class DoublyLinkedList(object):
         Best case running time: O(1) when n == 0 or n is out of range
         Worst case running time: O(n) 
         with doubly linked list the time is cut in half"""
-        # Check if the given index is out of range and if so raise an error
-        if not (-1 < index < self.size):
-            raise ValueError('List index out of range: {}'.format(index))
-        # checks if the index is in the frist half of the list
-        if self.size / 2 > index:
-            node_index = 0  # this will increment till we reach our index
-            node = self.head # start at first node
-            while node_index != index: # traverse the list till node_index == index
-                node = node.next
-                node_index += 1
-            return node.data # we've found it! Now we can return its data
-        # the index is in the second half of the linked list start from the end
-        else:
-            node_index = self.size - 1
-            node = self.tail
-            while node_index != index:
-                node = node.prev
-                node_index -= 1
-            return node.data
-            
+        return self[index].data
 
     def insert_at_index(self, index, item):
         """Insert the given item at the given index in this linked list, or
@@ -280,8 +279,9 @@ def test_linked_list():
         item = ll.get_at_index(index)
         print('get_at_index({}): {!r}'.format(index, item))
 
-    for i in reversed(ll):
-        print(i.data)
+    for i in ll:
+        print(i)
+    
 
     # print('Deleting items:')
     # ll.delete('B')
