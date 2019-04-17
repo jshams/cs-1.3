@@ -147,4 +147,15 @@ class HashTable(object):
             self.delete(key, bucket_index + 1)
 
     def _resize(self, new_size=None):
-        """Resize this hash table's buckets and rehash all key-value entries."""
+        """Resize this hash table's buckets and rehash all key-value entries.
+        Best and worst case: O(n)"""
+        if new_size == None: # check if the new size isn't specified
+            new_size = len(self.buckets * 2) # set new size to double our current size
+        all_items = [] # create a list all_items to store our items
+        for item in self.buckets: # iterate over our buckets
+            if item != None and item != self.footprint: # make sure the bucket isn't empty
+                all_items.append(item) # add the item to all_items
+        self.buckets = [None] * new_size # create a new bucket list new_size length with None values
+        self.size = 0 # reset the size to 0
+        for key, val in all_items: # for every item in all_items
+            self.set(key, val) # add the item to our new table
