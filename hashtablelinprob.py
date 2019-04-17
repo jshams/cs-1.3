@@ -60,10 +60,36 @@ class HashTable(object):
         return self.size
 
     def contains(self, key, bucket_index = None):
-        """Return True if this hash table contains the given key, or False."""
+        """Return True if this hash table contains the given key, or False.
+        Best case running time: O(1) most cases.
+        Worst case: O(n), really .75 * O(n) when CLUSTERS occur
+        The probablity of our best case is len(buckets) - 1/len(buckets)
+        The larger our HT the faster it will be"""
+        if bucket_index is None:
+            bucket_index = self._bucket_index(key)
+        if self.buckets[bucket_index] is None:
+            return False
+        elif self.buckets[bucket_index][0] == key:
+            return True
+        else:
+            if bucket_index == len(self.buckets) - 1:
+                bucket_index = -1
+            return self.contains(key, bucket_index + 1)
 
     def get(self, key, bucket_index = None):
-        """Return the value associated with the given key, or raise KeyError."""
+        """Return the value associated with the given key, or raise KeyError.
+        best time: O(1)
+        worst time: O(n)"""
+        if bucket_index is None:
+            bucket_index = self._bucket_index(key)
+        if self.buckets[bucket_index] is None:
+            raise KeyError('Key not found: {}'.format(key))
+        elif self.buckets[bucket_index] != self.footprint and self.buckets[bucket_index][0] == key:
+            return self.buckets[bucket_index][1]
+        else:
+            if bucket_index == len(self.buckets) - 1:
+                bucket_index = -1
+            return self.get(key, bucket_index + 1)
 
     def set(self, key, val, bucket_index = None):
         """Insert or update the given key with its associated value."""
