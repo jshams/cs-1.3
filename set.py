@@ -5,12 +5,14 @@ class Set(object):
         """Initialize this """
         self.items = HashTable()
         self.size = 0
-        for item in elements:
-            self.items.set(item, item)
+        if elements is not None:
+            for item in elements:
+                self.items.set(item, item)
+
     def __iter__(self):
         for item in self.items:
             yield item
-            
+
     def length(self):
         """return the length of our set"""
         return self.items.length()
@@ -54,13 +56,11 @@ class Set(object):
 
     def is_subset(self, sub_set):
         """ return a boolean indicating whether other_set is a subset of this set"""
-
         for item in sub_set:
             if not self.contains(item):
                 return False
         return True
-    
 
-class Set(HashTable):
-    def __init__(self, elements=None):
-        for element in elements
+# class Set(HashTable):
+#     def __init__(self, elements=None):
+#         pass
