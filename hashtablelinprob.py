@@ -98,7 +98,10 @@ class HashTable(object):
             return self.get(key, bucket_index + 1)
 
     def set(self, key, val, bucket_index = None):
-        """Insert or update the given key with its associated value."""
+        """Insert or update the given key with its associated value.
+        best time: O(1)
+        worst time: O(n), really 0.75 O(n)
+        """
         if bucket_index is None: # on the first iteration give bucket_index a value
             bucket_index = self._bucket_index(key) # find the bucket index
         # check if there is None or a footprint in the bucket
@@ -117,7 +120,9 @@ class HashTable(object):
             self._resize()
 
     def delete(self, key, bucket_index = None):
-        """given a key delete the item. after deleting leave a footprint"""
+        """given a key delete the item. after deleting leave a footprint
+        best time: O(1)
+        worst time: O(n)"""
         if bucket_index is None: # on the first iteration give bucket_index a value
             bucket_index = self._bucket_index(key) # find the bucket index
         if self.buckets[bucket_index] is None: # check if the bucket is empty
