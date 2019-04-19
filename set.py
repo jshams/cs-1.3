@@ -13,6 +13,13 @@ class Set(object):
         for item in self.items:
             yield item
 
+    def get_items(self):
+        """returns a list of all items in the set"""
+        all_items = []
+        for item in self.items:
+            all_items.append(item.data[0])
+        return all_items
+
     def length(self):
         """return the length of our set"""
         return self.items.length()
@@ -30,16 +37,20 @@ class Set(object):
         self.items.delete(element)
 
     def union(self, other_set):
-        """return a new set that is the union of this set and other_set"""
+        """return a new set that is the union of this set and other_set
+        Union - all the elements in both sets without repetition"""
         newSet = Set()
-        for item in self:
-            newSet.set(item)
-        for item in other_set:
-            newSet.set(item)
+        for item in self.items:
+            newSet.add(item.data[0])
+            print(item.data[0])
+        for item in other_set.items:
+            newSet.add(item.data[0])
+            print(item.data[0])
         return newSet
 
     def intersection(self, other_set):
-        """return a new set that is the intersection of this set and other_set"""
+        """return a new set that is the intersection of this set and other_set
+        Intersection- the equal values in both sets"""
         newSet = Set()
         for item in self:
             if other_set.contains(item):
@@ -47,7 +58,8 @@ class Set(object):
         return newSet
 
     def difference(self, other_set):
-        """return a new set that is the difference of this set and other_set"""
+        """return a new set that is the difference of this set and other_set
+        difference- set1 - set2 = set1 - intersection(set1, set2)"""
         new_set = Set()
         intersection = self.intersection(other_set)
         for item in self:
