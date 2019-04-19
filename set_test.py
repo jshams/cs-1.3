@@ -1,6 +1,10 @@
 from set import Set
 import unittest
 
+if not hasattr(unittest.TestCase, 'assertCountEqual'):
+    unittest.TestCase.assertCountEqual = unittest.TestCase.assertItemsEqual
+
+
 class SetTest(unittest.TestCase):
 
     def test_init(self):
@@ -45,15 +49,18 @@ class SetTest(unittest.TestCase):
         assert test_set.contains('C') == False
 
     def test_union(self):
-        pass
+        test_set = Set(['A','B','C','D','E'])
+        other_set = Set(['C','D','E','F','G'])
+        unions = test_set.union(other_set)
+        union_items = unions.get_items()
+        self.assertCountEqual(union_items, ['A', 'B', 'C', 'D', 'E', 'F', 'G'])
+
     def test_intersection(self):
         pass
     def test_difference(self):
         pass
     def test_is_subset(self):
         pass
-
-    
 
 if __name__ == '__main__':
     unittest.main()
