@@ -60,11 +60,16 @@ class SetTest(unittest.TestCase):
         other_set = Set(['C','D','E','F','G'])
         intersection = test_set.intersection(other_set)
         intersection_items = intersection.get_items()
-        print(intersection_items)
         self.assertCountEqual(intersection_items, ['C', 'D', 'E'])
 
     def test_difference(self):
-        pass
+        test_set = Set(['A','B','C','D','E'])
+        other_set = Set(['C','D','E','F','G'])
+        difference = test_set.difference(other_set)
+        difference_items = difference.get_items()
+        self.assertCountEqual(difference_items, ['A','B'])
+
+
     def test_is_subset(self):
         pass
 
