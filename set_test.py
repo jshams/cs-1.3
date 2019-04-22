@@ -69,9 +69,15 @@ class SetTest(unittest.TestCase):
         difference_items = difference.get_items()
         self.assertCountEqual(difference_items, ['A','B'])
 
-
     def test_is_subset(self):
-        pass
+        test_set = Set(['A','B','C','D','E'])
+        subset = Set(['B','C'])
+        assert test_set.is_subset(subset) == True
+        subset = Set([1,2,3])
+        assert test_set.is_subset(subset) == False
+        subset = Set(['D', 'E'])
+        assert test_set.is_subset(subset) == True
+        
 
 if __name__ == '__main__':
     unittest.main()
