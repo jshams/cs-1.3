@@ -60,9 +60,10 @@ class Set(object):
         difference- set1 - set2 = set1 - intersection(set1, set2)"""
         new_set = Set()
         intersection = self.intersection(other_set)
-        for item in self:
-            if not intersection.contains(item):
-                newSet.add(item)
+        for item in self.items:
+            if not intersection.contains(item.data[0]):
+                new_set.add(item.data[0])
+        return new_set
 
     def is_subset(self, sub_set):
         """ return a boolean indicating whether other_set is a subset of this set"""
