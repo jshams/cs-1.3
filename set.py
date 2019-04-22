@@ -65,10 +65,10 @@ class Set(object):
                 new_set.add(item.data[0])
         return new_set
 
-    def is_subset(self, sub_set):
+    def is_subset(self, other_set):
         """ return a boolean indicating whether other_set is a subset of this set"""
-        for item in sub_set:
-            if not self.contains(item):
+        for item in other_set:
+            if not self.contains(item.data[0]):
                 return False
         return True
 
