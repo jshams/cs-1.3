@@ -42,19 +42,17 @@ class Set(object):
         newSet = Set()
         for item in self.items:
             newSet.add(item.data[0])
-            print(item.data[0])
         for item in other_set.items:
             newSet.add(item.data[0])
-            print(item.data[0])
         return newSet
 
     def intersection(self, other_set):
         """return a new set that is the intersection of this set and other_set
         Intersection- the equal values in both sets"""
         newSet = Set()
-        for item in self:
-            if other_set.contains(item):
-                newSet.add(item)
+        for item in self.items:
+            if other_set.contains(item.data[0]):
+                newSet.add(item.data[0])
         return newSet
 
     def difference(self, other_set):
