@@ -209,8 +209,8 @@ class DoublyLinkedList(object):
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
-        Best case running time: ??? under what conditions? [TODO]
-        Worst case running time: ??? under what conditions? [TODO]"""
+        Best case running time: O(1) if it's the first item
+        Worst case running time: O(n) if it's the last item"""
         # Start at the head node
         node = self.head
         # Create a flag to track if we have found the given item
