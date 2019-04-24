@@ -18,6 +18,13 @@ class HashTable(object):
     def __repr__(self):
         """Return a string representation of this hash table."""
         return 'HashTable({!r})'.format(self.items())
+    
+    def __iter__(self):
+        """Define how we iterate over a hashtable"""
+        for bucket in self.buckets:
+            if not bucket.is_empty():
+                for item in bucket:
+                    yield item
 
     def _bucket_index(self, key):
         """Return the bucket index where the given key would be stored."""
@@ -143,25 +150,22 @@ class HashTable(object):
         # Option to reduce size if buckets are sparsely filled (low load factor)
         elif new_size is 0:
             new_size = len(self.buckets) / 2  # Half size
+        # Get a list to temporarily hold all current key-value entries
         temp_list = []
+        # itterate through the hashtable and append each item to temp_list
         for ll in self.buckets:
             if not ll.is_empty():
                 for item in ll:
                     temp_list.append(item)
+        # Create a new list of new_size total empty linked list buckets
         self.buckets = [DoublyLinkedList() for i in range(new_size)]
-        self.size = 0
-        print(temp_list)
-        for item in temp_list:
-            self.set(*item.data)
-
-        # TODO: Get a list to temporarily hold all current key-value entries
-        # ...
-        # TODO: Create a new list of new_size total empty linked list buckets
-        # ...
-        # TODO: Insert each key-value entry into the new list of buckets,
+        self.size = 0 # reset the size to 0
+        # Insert each key-value entry into the new list of buckets,
         # which will rehash them into a new bucket index based on the new size
-        # ...
-
+        for item in temp_list:
+            self.set(*item.data) # item.data is a touple
+            # The asterisk SCATTERS the touple
+            # even though set requires 2 params i can give it a touplex
 
 def test_hash_table():
     ht = HashTable(4)
