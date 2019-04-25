@@ -262,17 +262,17 @@ def test_linked_list():
         for j in ll:
             print(i.data, j.data)
 
-    # print('Deleting items:')
-    # ll.delete('B')
-    # print(ll)
-    # ll.delete('C')
-    # print(ll)
-    # ll.delete('A')
-    # print(ll)
-    # print('head: {}'.format(ll.head))
-    # print('tail: {}'.format(ll.tail))
-    # print('size: {}'.format(ll.size))
-    # print('length: {}'.format(ll.length()))
+    print('Deleting items:')
+    ll.delete('B')
+    print(ll)
+    ll.delete('C')
+    print(ll)
+    ll.delete('A')
+    print(ll)
+    print('head: {}'.format(ll.head))
+    print('tail: {}'.format(ll.tail))
+    print('size: {}'.format(ll.size))
+    print('length: {}'.format(ll.length()))
 
 
 
