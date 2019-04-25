@@ -6,8 +6,7 @@ def permutations(array):
         return [array, [array[1], array[0]]]
     all_perms = []
     for i in array:
-        new_array = []
-        new_array.extend(array)
+        new_array = array[:]
         new_array.remove(i)
         all_perms_extension = permutations(new_array)
         for group in all_perms_extension:
@@ -29,8 +28,7 @@ def efficient_perms(array):
         return [array, [array[1], array[0]]]
     all_perms = []
     for i in array:
-        new_array = []
-        new_array.extend(array)
+        new_array = array[:]
         new_array.remove(i)
         if str(new_array) in perm_store:
             all_perms_extension = perm_store[new_array]
@@ -42,6 +40,6 @@ def efficient_perms(array):
         all_perms.extend(all_perms_extension)
     return all_perms
 
-print(permutations([1,1]))
+print(permutations([1,2,3]))
 # print(''.join(generate_random_permutation(['J', 'A', 'K', 'E'])))
 
