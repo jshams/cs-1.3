@@ -14,8 +14,9 @@ turtle methods include:
 
 import turtle  
 pen = turtle.Turtle() 
-pen.speed(4) # sets the pen draw speed to max
-
+pen.speed(10) # sets the pen draw speed to max
+spen = turtle.Turtle() 
+spen.speed(4) # sets the pen draw speed to max
 # position the pen in the bottom corner
 pen.setheading(180)
 pen.pu()
@@ -24,9 +25,8 @@ pen.lt(90)
 pen.fd(300)
 pen.pd()
 
-
 def sierpinski(n, width = 30):
-    
+    '''draws order n sierpinski's triangle'''    
     if n == 1:
         pen.setheading(180)
         for i in range(3):
@@ -42,5 +42,12 @@ def sierpinski(n, width = 30):
         sierpinski(n - 1, width)
         pen.fd(width * 2 ** (n - 2))
 
-sierpinski(6, 20)
+def eqilateral_triangle(l):
+    for i in range(3):
+        spen.rt(120)
+        spen.fd(l)
+
+
+sierpinski(5, 37.5)
+# eqilateral_triangle(100)
 pen.rt(100000)
