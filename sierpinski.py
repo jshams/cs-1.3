@@ -15,8 +15,8 @@ turtle methods include:
 import turtle  
 pen = turtle.Turtle() 
 pen.speed(10) # sets the pen draw speed to max
-spen = turtle.Turtle() 
-spen.speed(4) # sets the pen draw speed to max
+# spen = turtle.Turtle() 
+# spen.speed(4) # sets the pen draw speed to max
 # position the pen in the bottom corner
 pen.setheading(180)
 pen.pu()
