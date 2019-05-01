@@ -28,7 +28,8 @@ class BinaryTreeNode(object):
         downward path from this node to a descendant leaf node).
         Best case: O(1) if the height is 0
         Worst case: O(n) if we start from the root"""
-
+        left_height = -1
+        right_height = -1
         if self.left is not None: # Check if left child has a value 
             left_height = self.left.height() # if so calculate its height
         if self.right is not None: # Check if right child has a value 
@@ -52,7 +53,7 @@ class BinarySearchTree(object):
 
     def is_empty(self):
         """Return True if this binary search tree is empty (has no nodes)."""
-        return self.root is None
+        return self.root is None or self.size == 0
 
     def height(self):
         """Return the height of this tree (the number of edges on the longest
@@ -141,7 +142,7 @@ class BinarySearchTree(object):
         Search is performed iteratively starting from the root node.
         Best case: O(1) if the tree is empty
         Worst case: O(n) if the tree is very unbalanced
-        Worst cast with balanced tree: o(log(n))"""
+        Worst cast with balanced tree: O(log(n))"""
         node = self.root # Start with the root node and keep track of its parent
         parent = None 
         while node is not None: # Loop until we descend past the closest leaf node
@@ -162,7 +163,7 @@ class BinarySearchTree(object):
         Search is performed recursively starting from the given node
         (give the root node to start recursion)."""
         if node is None: # Check if starting node exists
-            return None # Not found (base case)
+            return parent # Not found (base case)
         if item == node.data: # Check if the given item matches the node's data
             return parent  # Return the parent of the found node
         elif item < node.data: # Check if the given item is less than the node's data
@@ -174,11 +175,44 @@ class BinarySearchTree(object):
 
     def delete(self, item):
         """Remove given item from this tree, if present, or raise ValueError.
-        TODO: Best case running time: ??? under what conditions?
-        TODO: Worst case running time: ??? under what conditions?"""
+        Best case: O(1) if the tree is empty
+        Worst case: O(n) if the tree is very unbalanced
+        Worst cast with balanced tree: O(log(n))"""
         # TODO: Use helper methods and break this algorithm down into 3 cases
         # based on how many children the node containing the given item has and
         # implement new helper methods for subtasks of the more complex cases
+        parent = self._find_parent_node_recursive(item, self.root)
+        if parent is None:
+            raise ValueError("Item not found")
+        
+        if item < parent.data: # check if the item is on the left of the parent
+            node = parent.left # store the value of our deleted item
+            if node.left is None and node.right is None:
+                parent.left = None
+            elif node.left is None:
+                parent.left = node.right
+            elif node.right is None:
+                parent.left = node.left
+            else:
+                parent.left = node.left # add the left side of our node to the parent
+                # add the right side of the node to the rightmost decendant of our deleted node
+                new_parent = self._find_parent_node_recursive(node.data, parent.left)
+                new_parent.left = node.left 
+        elif item > parent.data: # check if the item is on the right of the parent
+            node = parent.right # store the value of our deleted item
+            if node.left is None and node.right is None:
+                parent.right = None
+            elif node.left is None:
+                parent.right = node.right
+            elif node.right is None:
+                parent.right = node.left
+            else:
+                parent.right = node.left # add the right side of our node to the parent
+                # add the left side of the node to the leftmost decendant of our deleted node
+                new_parent = self._find_parent_node_recursive(node.data, parent.right)
+                new_parent.right = node.right
+
+
 
     def items_in_order(self):
         """Return an in-order list of all items in this binary search tree."""
