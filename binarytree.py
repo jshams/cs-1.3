@@ -34,8 +34,11 @@ class BinaryTreeNode(object):
             left_height = self.left.height() # if so calculate its height
         if self.right is not None: # Check if right child has a value 
             right_height = self.right.height() # if so calculate its height
+        if self.right == None and self.left == None:
+            return 0
         # Return one more than the greater of the left height and right height
-        return left_height + 1 if left_height >= right_height else right_height + 1
+        # return left_height + 1 if left_height >= right_height else right_height + 1
+        return max(left_height, right_height) + 1
         
 class BinarySearchTree(object):
 
@@ -95,10 +98,10 @@ class BinarySearchTree(object):
             return 
         # Find the parent node of where the given item should be inserted
         parent = self._find_parent_node_recursive(item, self.root)
-        if item < parent.data: # Check if the given item should be inserted left of parent node
+        if item < parent.data and parent.left == None: # Check if the given item should be inserted left of parent node
             parent.left = BinaryTreeNode(item)  # Create a new node and set the parent's left child
             self.size += 1 # Increase the tree size
-        elif item > parent.data: # Check if the given item should be inserted right of parent node
+        elif item > parent.data and parent.right == None: # Check if the given item should be inserted right of parent node
             parent.right = BinaryTreeNode(item) # Create a new node and set the parent's right child 
             self.size += 1 # Increase the tree size
 
@@ -130,9 +133,9 @@ class BinarySearchTree(object):
             return None # Not found (base case)
         elif node.data == item: # Check if the given item matches the node's data
             return node # Return the found node
-        elif item < node.data:  # TODO: Check if the given item is less than the node's data
+        elif item < node.data:  # Check if the given item is less than the node's data
             return self._find_node_recursive(item, node.left) # Recursively descend to the node's left child, if it exists
-        elif item > node.data: # TODO: Check if the given item is greater than the node's data
+        elif item > node.data: # Check if the given item is greater than the node's data
             return self._find_node_recursive(item, node.right) # Recursively descend to the node's right child, if it exists
 
     def _find_parent_node_iterative(self, item):
@@ -211,6 +214,37 @@ class BinarySearchTree(object):
                 # add the left side of the node to the leftmost decendant of our deleted node
                 new_parent = self._find_parent_node_recursive(node.data, parent.right)
                 new_parent.right = node.right
+    def remove(self, item):
+        parent = self._find_parent_node_recursive(item, self.root) # find the parent of the node containing item
+        if parent is None: # if not found  
+            raise ValueError("Item not found") # raise value err
+        if item < parent.data: # check if the item is on the left of the parent
+            node = parent.left # store the value of our deleted item
+        elif item > parent.data: # check if the item is on the right of the parent
+            node = parent.right # store the value of our deleted item
+        if node.is_leaf():
+            if item < parent.data: # check if the item is on the left of the parent
+                parent.left = None
+            else:
+                parent.right = None
+        elif node.right == None:
+            if item < parent.data: # check if the item is on the left of the parent
+                parent.left = node.left
+            else: # otherwise item is on the right of the parent
+                parent.right = node.left
+        elif node.left == None:
+            if item < parent.data: # check if the item is on the left of the parent
+                parent.left = node.right
+            else: # otherwise item is on the right of the parent
+                parent.right = node.right
+        else: # node has 2 children
+            nodes_right_child = node.right
+            # 
+            # find the parent of the leftmost node
+
+        
+        
+
 
 
 
