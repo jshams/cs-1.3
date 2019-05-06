@@ -58,7 +58,6 @@ class CircularBuffer(object):
             self.list[self.tail] = None
             self.dec_tail()
             return deq
-            
-
-
-
+    
+    def peek(self):
+        return self.list[self.head]
