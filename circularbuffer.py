@@ -1,9 +1,3 @@
-
-class CircularBufferNode(object):
-    def __init__(self, data):
-        self.data = data
-        self.next = None
-
 class CircularBuffer(object):
     def __init__(self, items = None):
         self.head = None
@@ -26,6 +20,21 @@ class CircularBuffer(object):
         if self.size == self.length:
             return True
         return False
+    
+    def inc_head(self):
+        self.head += 1
+        if self.head == self.length:
+            self.head = 0
+    
+    def inc_tail(self):
+        self.tail += 1
+        if self.tail == self.length:
+            self.tail = 0
+
+    def dec_tail(self):
+        self.tail -= 1
+        if self.tail == -1:
+            self.tail = self.length - 1
 
     def enqueue(self, item):
         if self.is_empty():
@@ -34,13 +43,22 @@ class CircularBuffer(object):
         elif self.is_full():
             deq = self.list[self.head]
             self.list[self.head] = item
-            self.head += 1
-            if self.head == self.size:
-                self.head = 0
+            self.inc_head()
+            self.inc_tail
+            return deq
+        else: # list is not full and not empty
+            self.inc_tail()
+            self.list[self.tail] = item
+    
+    def dequeue(self):
+        if self.is_empty():
+            return None
+        else:
+            deq = self.list[self.tail]
+            self.list[self.tail] = None
+            self.dec_tail()
+            return deq
+            
 
-
-            deq = self.list[self.head]
-            self.list[self.head] = item
-            self.head += 1
 
 
