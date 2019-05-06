@@ -309,8 +309,8 @@ class BinarySearchTree(object):
     def _traverse_pre_order_iterative(self, node, visit):
         """Traverse this binary tree with iterative pre-order traversal (DFS).
         Start at the given node and visit each node with the given function.
-        TODO: Running time: ??? Why and under what conditions?
-        TODO: Memory usage: ??? Why and under what conditions?"""
+        Running time: O(n) because we must visit each node
+        Memory usage: O(h) where h is the height of the tree"""
         # TODO: Traverse pre-order without using recursion (stretch challenge)
 
     def items_post_order(self):
@@ -325,8 +325,8 @@ class BinarySearchTree(object):
     def _traverse_post_order_recursive(self, node, visit):
         """Traverse this binary tree with recursive post-order traversal (DFS).
         Start at the given node and visit each node with the given function.
-        TODO: Running time: ??? Why and under what conditions?
-        TODO: Memory usage: ??? Why and under what conditions?"""
+        Running time: O(n) because we must visit each node
+        Memory usage: O(h) where h is the height of the tree"""
         # Traverse left subtree, if it exists
         if node.left is not None:
             self._traverse_post_order_recursive(node.left, visit)
@@ -355,8 +355,8 @@ class BinarySearchTree(object):
     def _traverse_level_order_iterative(self, start_node, visit):
         """Traverse this binary tree with iterative level-order traversal (BFS).
         Start at the given node and visit each node with the given function.
-        Running time: ??? Why and under what conditions?
-        Memory usage: ??? Why and under what conditions?"""
+        Running time: O(n) because we must visit each node
+        Memory usage: Worse case: O(n) if all the nodes are children of one another"""
         # Create queue to store nodes not yet traversed in level-order
         queue = LinkedQueue()
         # Enqueue given starting node
