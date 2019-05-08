@@ -337,47 +337,33 @@ class BinarySearchTree(object):
         # Visit this node's data with given function
         visit(node.data)
 
-    def _traverse_post_order_iterative(self, start_node, visit):
+    def _traverse_post_order_iterative(self, node, visit):
         """Traverse this binary tree with iterative post-order traversal (DFS).
         Start at the given node and visit each node with the given function.
-        TODO: Running time: ??? Why and under what conditions?
-        TODO: Memory usage: ??? Why and under what conditions?"""
+        Running time: O(n)
+        Memory usage: O(n)
+        Credit to Nicolai and Ryan for solving what I began"""
+        # Traverse post-order without using recursion (stretch challenge)
+        traversed = set()
+        # Create queue to store nodes not yet traversed
         stack = LinkedStack()
-        # TODO: Traverse post-order without using recursion (stretch challenge)
-
-        stack.push(start_node)
-
+        # Enqueue root node as last
+        stack.push(node)
         while not stack.is_empty():
             node = stack.peek()
-            if node.right is not None:
+            if node.right and node.right not in traversed:
                 stack.push(node.right)
-                if node.right.is_leaf():
-                    visit(stack.pop())
-
-            if node.left is not None:
+            if node.left and node.left not in traversed:
                 stack.push(node.left)
-                if node.left.is_leaf():
-                    visit(stack.pop())
-            visit(stack.pop())
-            # if node.is_leaf():
-            #     visit(stack.pop())
-
-        # while not stack.is_empty():
-        #     top_node = stack.peek()
-        #     node = stack.peek()
-
-        #     while node.right is not None:
-        #         stack.push(node.right)
-        #         node = node.right
-
-        #     node = top_node
-        #     while node.left is not None:
-        #         stack.push(node.left)
-        #         node = node.left
-        #     while node != top_node:
-        #         node = stack.pop()
-        #         visit(node.data)
-                
+            if (
+                node.is_leaf()
+                or node.left is None and node.right in traversed 
+                or node.left in traversed and node.right is None
+                or node.left in traversed and node.right in traversed
+            ):
+                node = stack.pop()
+                visit(node.data)
+                traversed.add(node)
 
     def items_level_order(self):
         """Return a level-order list of all items in this binary search tree."""
